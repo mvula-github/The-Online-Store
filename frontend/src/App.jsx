@@ -6,6 +6,7 @@ import {
   TruckIcon,
   ClockIcon,
 } from "@heroicons/react/24/solid";
+import DarkModeToggle from "./components/DarkModeToggle";
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem("jwt"));
@@ -29,6 +30,7 @@ function App() {
         >
           Logout
         </button>
+        <DarkModeToggle />
       </nav>
       <main className="max-w-5xl mx-auto py-8">
         <CombinedView />
