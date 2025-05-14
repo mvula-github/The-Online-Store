@@ -21,4 +21,12 @@ async function getContainer() {
   return container;
 }
 
-module.exports = { getContainer };
+async function getUsersContainer() {
+  const database = await getDatabase();
+  const { container } = await database.containers.createIfNotExists({
+    id: "users",
+  });
+  return container;
+}
+
+module.exports = { getContainer, getUsersContainer };

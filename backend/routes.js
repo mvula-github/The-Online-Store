@@ -4,6 +4,7 @@ const gateway = require("./gateway");
 const { getContainer } = require("./cosmos");
 const { validate, validationResult } = require("express-validator");
 const { authenticate } = require("./auth/auth");
+const bcrypt = require("bcryptjs");
 
 gateway.use("/api", router); // Add routes to the gateway
 

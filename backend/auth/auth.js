@@ -1,13 +1,13 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const logger = require("../logging");
-const { getContainer } = require("../cosmos");
+const { getContainer, getUsersContainer } = require("../cosmos");
 
 const secretKey = process.env.JWT_SECRET;
 const expirationTime = process.env.JWT_EXPIRATION || "1h";
 
 async function getUserByUsername(username) {
-  const container = await getContainer();
+  const container = await getUsersContainer();
   const querySpec = {
     query: "SELECT * FROM c WHERE c.username = @username",
     parameters: [{ name: "@username", value: username }],
