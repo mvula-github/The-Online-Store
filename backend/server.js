@@ -1,3 +1,4 @@
+const https = require("https");
 const express = require("express");
 const app = express();
 const env = require("dotenv").config();
@@ -5,6 +6,15 @@ const env = require("dotenv").config();
 app.use(express.json());
 
 const port = process.env.PORT;
+
+// Add HTTPS support
+const options = {
+  key: fs.readFileSync("path/to/ssl/key"),
+  cert: fs.readFileSync("path/to/ssl/cert"),
+};
+https.createServer(options, app).listen(port, () => {
+  console.log(`Server listening on port ${port}`);
+});
 
 // Add error handling middleware
 app.use((err, req, res, next) => {
