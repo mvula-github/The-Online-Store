@@ -1,10 +1,24 @@
 const { CosmosClient } = require("@azure/cosmos");
 const env = require("dotenv").config();
+const endpoint = process.env.COSMOS_ENDPOINT;
+const key = process.env.COSMOS_KEY;
+const client = new CosmosClient({ endpoint, key });
 
-const cosmosClient = new CosmosClient({
-  endpoint: process.env.COSMOS_ENDPOINT,
-  key: process.env.COSMOS_KEY,
-});
+const databaseId = process.env.COSMOS_DATABASE_ID;
+const containerId = process.env.COSMOS_CONTAINER_ID;
 
-const database = cosmosClient.database(process.env.COSMOS_DATABASE_NAME);
-const ordersContainer = database.container(process.env.COSMOS_CONTAINER_NAME);
+async function getDatabase() {
+  const { database } = await client.databases.createIfNotExists({
+    id: databaseId,
+  });
+  return database;
+}
+
+async function getContainer() {
+  const { container } = await getDatabase().containers.createIfNotExists({
+    id: containerId,
+  });
+  return container;
+}
+
+module.exports = { getContainer };
