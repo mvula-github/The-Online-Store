@@ -1,6 +1,11 @@
 import { useState } from "react";
 import LoginForm from "./components/LoginForm";
 import CombinedView from "./components/CombinedView";
+import {
+  CheckCircleIcon,
+  TruckIcon,
+  ClockIcon,
+} from "@heroicons/react/24/solid";
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem("jwt"));
