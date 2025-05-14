@@ -9,6 +9,8 @@ import {
   ClockIcon,
 } from "@heroicons/react/24/solid";
 import DarkModeToggle from "./components/DarkModeToggle";
+import { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem("jwt"));
@@ -22,6 +24,8 @@ function App() {
   const filteredOrders = orders.filter((order) =>
     order.customerName.toLowerCase().includes(search.toLowerCase())
   );
+
+  toast.error("Login failed!");
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100">
@@ -50,6 +54,7 @@ function App() {
         />
         <CombinedView />
       </main>
+      <Toaster position="top-right" />
     </div>
   );
 }
