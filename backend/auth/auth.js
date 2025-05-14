@@ -1,8 +1,9 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
+const logger = require("../logging");
 
-const secretKey = "your-secret-key";
-const expirationTime = "1h";
+const secretKey = process.env.JWT_SECRET;
+const expirationTime = process.env.JWT_EXPIRATION || "1h";
 
 const login = async (req, res) => {
   const { username, password } = req.body;
@@ -21,17 +22,22 @@ const login = async (req, res) => {
 };
 
 const authenticate = async (req, res, next) => {
-  const token = req.header("Authorization");
+  let token = req.header("Authorization");
   if (!token) {
+    logger.warn("Access denied. No token provided.");
     return res
       .status(401)
       .send({ message: "Access denied. No token provided." });
+  }
+  if (token.startsWith("Bearer ")) {
+    token = token.slice(7);
   }
   try {
     const decoded = jwt.verify(token, secretKey);
     req.user = decoded;
     next();
   } catch (ex) {
+    logger.warn("Invalid token.");
     res.status(400).send({ message: "Invalid token." });
   }
 };

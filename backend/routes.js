@@ -2,12 +2,16 @@ const express = require("express");
 const router = express.Router();
 const gateway = require("./gateway");
 const { getContainer } = require("./cosmos");
-const { validate } = require("express-validator");
+const { validate, validationResult } = require("express-validator");
 
 gateway.use("/api", router); // Add routes to the gateway
 
 // POST /api/orders
 router.post("/orders", validate("order"), async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
   const container = await getContainer();
   const { body } = req;
   const order = { ...body, id: Date.now().toString() };
@@ -17,6 +21,10 @@ router.post("/orders", validate("order"), async (req, res) => {
 
 // POST /api/deliveries
 router.post("/deliveries", validate("delivery"), async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
   const container = await getContainer();
   const { body } = req;
   const delivery = { ...body, id: Date.now().toString() };
