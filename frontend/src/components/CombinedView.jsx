@@ -1,4 +1,4 @@
-import OrdersList from "./OrdersList";
+import OrdersList from "./OrderList";
 import DeliveriesList from "./DeliveriesList";
 
 export default function CombinedView() {
