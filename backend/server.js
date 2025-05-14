@@ -29,6 +29,7 @@ requiredEnv.forEach((key) => {
 
 // CORS setup - allow only trusted origins
 const allowedOrigins = ["https://your-frontend-domain.com"];
+
 app.use(
   cors({
     origin: function (origin, callback) {
