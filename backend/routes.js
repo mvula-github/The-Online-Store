@@ -1,7 +1,10 @@
 const express = require("express");
 const router = express.Router();
+const gateway = require("./gateway");
 const { getContainer } = require("./cosmos");
 const { validate } = require("express-validator");
+
+gateway.use("/api", router); // Add routes to the gateway
 
 // POST /api/orders
 router.post("/orders", validate("order"), async (req, res) => {
