@@ -12,8 +12,8 @@ import DarkModeToggle from "./components/DarkModeToggle";
 import { Toaster } from "react-hot-toast";
 import toast from "react-hot-toast";
 import jwt_decode from "jwt-decode";
-import OrdersList from "./OrdersList";
-import DeliveriesList from "./DeliveriesList";
+import OrderList from "./components/OrderList";
+import DeliveriesList from "./components/DeliveriesList";
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem("jwt"));
