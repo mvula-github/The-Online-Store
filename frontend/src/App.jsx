@@ -11,10 +11,13 @@ import {
 import DarkModeToggle from "./components/DarkModeToggle";
 import { Toaster } from "react-hot-toast";
 import toast from "react-hot-toast";
+import jwt_decode from "jwt-decode";
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem("jwt"));
   const [search, setSearch] = useState("");
+
+  const user = token ? jwt_decode(token) : null;
 
   if (!token) {
     return <LoginForm onLogin={setToken} />;
