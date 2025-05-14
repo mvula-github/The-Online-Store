@@ -11,7 +11,7 @@ import {
 import DarkModeToggle from "./components/DarkModeToggle";
 import { Toaster } from "react-hot-toast";
 import toast from "react-hot-toast";
-import jwt_decode from "jwt-decode";
+import * as jwt_decode from "jwt-decode";
 import OrderList from "./components/OrderList";
 import DeliveriesList from "./components/DeliveriesList";
 
@@ -23,7 +23,8 @@ function App() {
   let user = null;
   if (token) {
     try {
-      user = jwt_decode(token);
+      const decoded = jwt_decode.default(token);
+      user = decoded;
     } catch {
       user = null;
     }
